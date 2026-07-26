@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Orders - InstaGrow Admin</title>
+
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../responsive.css">
+
+</head>
+
+<body>
+
+<script>
+if(localStorage.getItem("adminLoggedIn")!=="true"){
+window.location.href="login.html";
+}
+</script>
+
+<header class="header">
+
+<a href="dashboard.html" class="logo">
+📸 InstaGrow Admin
+</a>
+
+<a href="dashboard.html">Dashboard</a>
+
+</header>
+
+<main class="admin-container">
+
+<h1>📦 All Orders</h1>
+
+<div id="ordersList"></div>
+
+</main>
+
+<script>
+
+const orders=
+JSON.parse(localStorage.getItem("instagrowOrders")||"[]");
+
+const container=document.getElementById("ordersList");
+
+if(orders.length===0){
+
+container.innerHTML=
+"<div class='admin-card'><h3>No orders found</h3></div>";
+
+}else{
+
+orders.forEach((order,index)=>{
+
+container.innerHTML+=`
+
+<div class="admin-card">
+
+<h3>Order #${order.id||index+1}</h3>
+
+<p>
+Instagram:
+${order.instagram||"Not Available"}
+</p>
+
+<p>
+Plan:
+${order.plan||"Not Available"}
+</p>
+
+<p>
+Amount:
+₹${order.amount||0}
+</p>
+
+<p>
+Status:
+<strong>${order.status||"Pending"}</strong>
+</p>
+
+<a
+href="order-details.html?id=${index}"
+class="btn-primary"
+>
+View Details
+</a>
+
+</div>
+
+`;
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
