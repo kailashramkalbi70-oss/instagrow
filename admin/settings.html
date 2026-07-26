@@ -1,1 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Settings - InstaGrow Admin</title>
+
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../responsive.css">
+
+</head>
+
+<body>
+
+<script>
+if(localStorage.getItem("adminLoggedIn")!=="true"){
+window.location.href="login.html";
+}
+</script>
+
+<main class="admin-container">
+
+<h1>⚙️ Admin Settings</h1>
+
+<div class="admin-card">
+
+<form id="settingsForm">
+
+<label>
+Website Name
+</label>
+
+<input
+type="text"
+id="siteName"
+placeholder="InstaGrow"
+>
+
+<label>
+Support WhatsApp Number
+</label>
+
+<input
+type="text"
+id="whatsapp"
+placeholder="91XXXXXXXXXX"
+>
+
+<label>
+UPI ID
+</label>
+
+<input
+type="text"
+id="upi"
+placeholder="yourupi@upi"
+>
+
+<button class="btn-primary">
+Save Settings
+</button>
+
+</form>
+
+<p id="saveMessage"></p>
+
+</div>
+
+</main>
+
+<script>
+
+const settings=
+JSON.parse(localStorage.getItem("instagrowSettings")||"{}");
+
+document.getElementById("siteName").value=
+settings.siteName||"InstaGrow";
+
+document.getElementById("whatsapp").value=
+settings.whatsapp||"";
+
+document.getElementById("upi").value=
+settings.upi||"";
+
+document.getElementById("settingsForm")
+.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const data={
+
+siteName:
+document.getElementById("siteName").value,
+
+whatsapp:
+document.getElementById("whatsapp").value,
+
+upi:
+document.getElementById("upi").value
+
+};
+
+localStorage.setItem(
+"instagrowSettings",
+JSON.stringify(data)
+);
+
+document.getElementById("saveMessage").textContent=
+"Settings saved successfully";
+
+});
+
+</script>
+
+</body>
+</html>
