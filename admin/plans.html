@@ -1,1 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Plans - InstaGrow Admin</title>
+
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../responsive.css">
+
+</head>
+
+<body>
+
+<script>
+if(localStorage.getItem("adminLoggedIn")!=="true"){
+window.location.href="login.html";
+}
+</script>
+
+<main class="admin-container">
+
+<h1>💎 Manage Plans</h1>
+
+<div class="admin-card">
+
+<form id="planForm">
+
+<input
+type="text"
+id="planName"
+placeholder="Plan Name"
+required
+>
+
+<input
+type="number"
+id="planPrice"
+placeholder="Price in ₹"
+required
+>
+
+<input
+type="number"
+id="planFollowers"
+placeholder="Followers"
+required
+>
+
+<button class="btn-primary">
+Add Plan
+</button>
+
+</form>
+
+</div>
+
+<div id="plansList"></div>
+
+</main>
+
+<script>
+
+let plans=
+JSON.parse(localStorage.getItem("instagrowPlans")||"[]");
+
+function displayPlans(){
+
+const container=
+document.getElementById("plansList");
+
+container.innerHTML="";
+
+plans.forEach((plan,index)=>{
+
+container.innerHTML+=`
+
+<div class="admin-card">
+
+<h3>${plan.name}</h3>
+
+<p>Followers: ${plan.followers}</p>
+
+<p>Price: ₹${plan.price}</p>
+
+<button
+class="btn-danger"
+onclick="deletePlan(${index})"
+>
+Delete
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+document.getElementById("planForm")
+.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+plans.push({
+
+name:
+document.getElementById("planName").value,
+
+price:
+document.getElementById("planPrice").value,
+
+followers:
+document.getElementById("planFollowers").value
+
+});
+
+localStorage.setItem(
+"instagrowPlans",
+JSON.stringify(plans)
+);
+
+this.reset();
+
+displayPlans();
+
+});
+
+function deletePlan(index){
+
+plans.splice(index,1);
+
+localStorage.setItem(
+"instagrowPlans",
+JSON.stringify(plans)
+);
+
+displayPlans();
+
+}
+
+displayPlans();
+
+</script>
+
+</body>
+</html>
