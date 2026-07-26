@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Successful - InstaGrow</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<main class="success-page">
+
+<div class="success-card">
+
+<div class="success-icon">✓</div>
+
+<h1>Order Submitted!</h1>
+
+<p>
+Your order has been submitted successfully.
+</p>
+
+<p>
+Order ID:
+<strong id="orderId"></strong>
+</p>
+
+<a href="my-orders.html" class="btn primary">
+View My Orders
+</a>
+
+<a href="index.html" class="btn secondary">
+Back Home
+</a>
+
+</div>
+
+</main>
+
+<script>
+
+const id =
+localStorage.getItem("lastOrderId");
+
+document.getElementById("orderId").textContent =
+id || "N/A";
+
+</script>
+
+</body>
+</html>
