@@ -1,1 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Payments - InstaGrow Admin</title>
+
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../responsive.css">
+
+</head>
+
+<body>
+
+<script>
+if(localStorage.getItem("adminLoggedIn")!=="true"){
+window.location.href="login.html";
+}
+</script>
+
+<main class="admin-container">
+
+<h1>💳 Payments</h1>
+
+<div id="paymentsList"></div>
+
+</main>
+
+<script>
+
+const payments=
+JSON.parse(localStorage.getItem("instagrowPayments")||"[]");
+
+const container=
+document.getElementById("paymentsList");
+
+if(payments.length===0){
+
+container.innerHTML=`
+
+<div class="admin-card">
+
+<h3>No payments found</h3>
+
+</div>
+
+`;
+
+}else{
+
+payments.forEach((payment,index)=>{
+
+container.innerHTML+=`
+
+<div class="admin-card">
+
+<h3>Payment #${index+1}</h3>
+
+<p>
+Order ID:
+${payment.orderId||"N/A"}
+</p>
+
+<p>
+Amount:
+₹${payment.amount||0}
+</p>
+
+<p>
+Payment Method:
+${payment.method||"UPI"}
+</p>
+
+<p>
+Status:
+${payment.status||"Pending"}
+</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
