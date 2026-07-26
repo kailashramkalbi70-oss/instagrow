@@ -1,1 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login - InstaGrow</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../responsive.css">
+</head>
 
+<body class="auth-page">
+
+<div class="auth-container">
+
+<div class="auth-card">
+
+<h1>🔐 Admin Login</h1>
+<p>InstaGrow Admin Panel</p>
+
+<form id="adminLoginForm">
+
+<input
+type="email"
+id="adminEmail"
+placeholder="Admin Email"
+required
+>
+
+<input
+type="password"
+id="adminPassword"
+placeholder="Password"
+required
+>
+
+<button type="submit" class="btn-primary">
+Login
+</button>
+
+<p id="adminLoginMessage"></p>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+document.getElementById("adminLoginForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const email=document.getElementById("adminEmail").value;
+const password=document.getElementById("adminPassword").value;
+
+if(email==="admin@instagrow.com" && password==="admin123"){
+
+localStorage.setItem("adminLoggedIn","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("adminLoginMessage").textContent=
+"Invalid admin email or password";
+
+}
+
+});
+</script>
+
+</body>
+</html>
