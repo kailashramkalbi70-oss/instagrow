@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Users - InstaGrow Admin</title>
+
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../responsive.css">
+
+</head>
+
+<body>
+
+<script>
+if(localStorage.getItem("adminLoggedIn")!=="true"){
+window.location.href="login.html";
+}
+</script>
+
+<header class="header">
+
+<a href="dashboard.html" class="logo">
+📸 InstaGrow Admin
+</a>
+
+</header>
+
+<main class="admin-container">
+
+<h1>👤 Users</h1>
+
+<div id="usersList"></div>
+
+</main>
+
+<script>
+
+const users=
+JSON.parse(localStorage.getItem("instagrowUsers")||"[]");
+
+const container=
+document.getElementById("usersList");
+
+if(users.length===0){
+
+container.innerHTML=`
+
+<div class="admin-card">
+
+<h3>No users registered yet</h3>
+
+</div>
+
+`;
+
+}else{
+
+users.forEach((user,index)=>{
+
+container.innerHTML+=`
+
+<div class="admin-card">
+
+<h3>User #${index+1}</h3>
+
+<p>
+Name:
+${user.name||"Not Available"}
+</p>
+
+<p>
+Email:
+${user.email||"Not Available"}
+</p>
+
+<p>
+Joined:
+${user.date||"Not Available"}
+</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
