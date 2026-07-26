@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile - InstaGrow</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<header class="header">
+<a href="index.html" class="logo">📸 InstaGrow</a>
+</header>
+
+<main class="section">
+
+<div class="profile-card">
+
+<h1>My Profile</h1>
+
+<div id="profileData"></div>
+
+<a href="my-orders.html" class="btn primary">
+My Orders
+</a>
+
+<button onclick="logout()" class="btn secondary">
+Logout
+</button>
+
+</div>
+
+</main>
+
+<script src="auth.js"></script>
+
+<script>
+
+const user =
+JSON.parse(localStorage.getItem("currentUser"));
+
+if(user){
+
+document.getElementById("profileData").innerHTML = `
+<h3>${user.name}</h3>
+<p>${user.email}</p>
+`;
+
+}
+
+</script>
+
+</body>
+</html>
