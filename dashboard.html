@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - InstaGrow</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<header class="header">
+<a href="index.html" class="logo">📸 InstaGrow</a>
+</header>
+
+<main class="section">
+
+<h1>Dashboard</h1>
+
+<div class="grid">
+
+<div class="card">
+<h3>Total Orders</h3>
+<h2 id="totalOrders">0</h2>
+</div>
+
+<div class="card">
+<h3>Pending Orders</h3>
+<h2 id="pendingOrders">0</h2>
+</div>
+
+<div class="card">
+<h3>Completed Orders</h3>
+<h2 id="completedOrders">0</h2>
+</div>
+
+</div>
+
+</main>
+
+<script>
+
+const orders =
+JSON.parse(localStorage.getItem("orders") || "[]");
+
+document.getElementById("totalOrders").textContent =
+orders.length;
+
+document.getElementById("pendingOrders").textContent =
+orders.filter(o => o.status === "Pending").length;
+
+document.getElementById("completedOrders").textContent =
+orders.filter(o => o.status === "Completed").length;
+
+</script>
+
+</body>
+</html>
