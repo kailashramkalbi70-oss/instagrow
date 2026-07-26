@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Details - InstaGrow</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<header class="header">
+<a href="index.html" class="logo">📸 InstaGrow</a>
+</header>
+
+<main class="section">
+
+<div id="orderDetails" class="details-card"></div>
+
+</main>
+
+<script>
+
+const id =
+new URLSearchParams(location.search).get("id");
+
+const orders =
+JSON.parse(localStorage.getItem("orders") || "[]");
+
+const order =
+orders.find(o => o.id === id);
+
+if(order){
+
+document.getElementById("orderDetails").innerHTML = `
+
+<h1>Order Details</h1>
+
+<p><strong>Order ID:</strong> ${order.id}</p>
+
+<p><strong>Plan:</strong> ${order.plan}</p>
+
+<p><strong>Price:</strong> ₹${Number(order.price).toLocaleString("en-IN")}</p>
+
+<p><strong>Instagram:</strong> ${order.instagramUrl}</p>
+
+<p><strong>Name:</strong> ${order.playerName}</p>
+
+<p><strong>Status:</strong>
+<span class="status">${order.status}</span>
+</p>
+
+`;
+
+}else{
+
+document.getElementById("orderDetails").innerHTML =
+"<h2>Order Not Found</h2>";
+
+}
+
+</script>
+
+</body>
+</html>
