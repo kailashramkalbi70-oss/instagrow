@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment - InstaGrow</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<header class="header">
+<a href="index.html" class="logo">📸 InstaGrow</a>
+</header>
+
+<main class="auth-page">
+
+<div class="auth-card">
+
+<h1>Payment</h1>
+
+<p>UPI ID:</p>
+
+<div class="upi-box">
+8279207685@apl
+</div>
+
+<p>
+Complete your payment using your preferred UPI app.
+</p>
+
+<input
+type="text"
+id="transactionId"
+placeholder="Enter Transaction ID"
+required
+>
+
+<button onclick="completePayment()" class="btn primary full">
+Confirm Payment
+</button>
+
+</div>
+
+</main>
+
+<script src="payment.js"></script>
+
+</body>
+</html>
