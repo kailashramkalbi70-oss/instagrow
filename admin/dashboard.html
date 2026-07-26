@@ -1,1 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Admin Dashboard - InstaGrow</title>
+
+<link rel="stylesheet" href="admin-style.css">
+</head>
+
+<body>
+
+<!-- Admin Login Check -->
+<script>
+if (localStorage.getItem("adminLoggedIn") !== "true") {
+    window.location.href = "login.html";
+}
+</script>
+
+
+<!-- Header -->
+<header class="admin-header">
+
+    <div class="admin-logo">
+        📸 InstaGrow Admin
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="orders.html">Orders</a>
+        <a href="users.html">Users</a>
+        <a href="settings.html">Settings</a>
+
+        <button onclick="adminLogout()" class="logout-btn">
+            Logout
+        </button>
+    </nav>
+
+</header>
+
+
+<!-- Main Dashboard -->
+<main class="admin-container">
+
+    <h1>Admin Dashboard</h1>
+
+    <p class="dashboard-subtitle">
+        Welcome to InstaGrow Admin Panel
+    </p>
+
+
+    <!-- Statistics -->
+    <section class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <h3>Total Users</h3>
+            <p id="totalUsers">0</p>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon">📦</div>
+            <h3>Total Orders</h3>
+            <p id="totalOrders">0</p>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+            <h3>Pending Orders</h3>
+            <p id="pendingOrders">0</p>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <h3>Completed Orders</h3>
+            <p id="completedOrders">0</p>
+        </div>
+
+    </section>
+
+
+    <!-- Admin Menu -->
+    <h2 class="section-title">
+        Manage Website
+    </h2>
+
+
+    <section class="admin-menu-grid">
+
+        <a href="orders.html" class="admin-card">
+
+            <div class="menu-icon">📦</div>
+
+            <h3>Manage Orders</h3>
+
+            <p>
+                View and manage all customer orders.
+            </p>
+
+        </a>
+
+
+        <a href="order-details.html" class="admin-card">
+
+            <div class="menu-icon">🔍</div>
+
+            <h3>Order Details</h3>
+
+            <p>
+                View complete order information.
+            </p>
+
+        </a>
+
+
+        <a href="users.html" class="admin-card">
+
+            <div class="menu-icon">👤</div>
+
+            <h3>Manage Users</h3>
+
+            <p>
+                View registered customer accounts.
+            </p>
+
+        </a>
+
+
+        <a href="plans.html" class="admin-card">
+
+            <div class="menu-icon">💎</div>
+
+            <h3>Manage Plans</h3>
+
+            <p>
+                Add, edit and manage service plans.
+            </p>
+
+        </a>
+
+
+        <a href="payments.html" class="admin-card">
+
+            <div class="menu-icon">💳</div>
+
+            <h3>Payments</h3>
+
+            <p>
+                View customer payment records.
+            </p>
+
+        </a>
+
+
+        <a href="settings.html" class="admin-card">
+
+            <div class="menu-icon">⚙️</div>
+
+            <h3>Settings</h3>
+
+            <p>
+                Manage website and admin settings.
+            </p>
+
+        </a>
+
+    </section>
+
+</main>
+
+
+<!-- JavaScript -->
+<script>
+
+function adminLogout() {
+
+    localStorage.removeItem("adminLoggedIn");
+
+    window.location.href = "login.html";
+
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    // Users
+    const users = JSON.parse(
+        localStorage.getItem("instagrowUsers") || "[]"
+    );
+
+
+    // Orders
+    const orders = JSON.parse(
+        localStorage.getItem("instagrowOrders") || "[]"
+    );
+
+
+    // Total Users
+    document.getElementById("totalUsers").textContent =
+        users.length;
+
+
+    // Total Orders
+    document.getElementById("totalOrders").textContent =
+        orders.length;
+
+
+    // Pending Orders
+    const pendingOrders = orders.filter(function(order) {
+
+        return String(order.status || "").toLowerCase()
+            === "pending";
+
+    });
+
+
+    document.getElementById("pendingOrders").textContent =
+        pendingOrders.length;
+
+
+    // Completed Orders
+    const completedOrders = orders.filter(function(order) {
+
+        return String(order.status || "").toLowerCase()
+            === "completed";
+
+    });
+
+
+    document.getElementById("completedOrders").textContent =
+        completedOrders.length;
+
+});
+
+</script>
+
+</body>
+</html>
