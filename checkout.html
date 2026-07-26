@@ -1,1 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - InstaGrow</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<header class="header">
+<a href="index.html" class="logo">📸 InstaGrow</a>
+</header>
+
+<main class="section">
+
+<div class="checkout-card">
+
+<h1>Checkout</h1>
+
+<div id="checkoutDetails"></div>
+
+<button onclick="goPayment()" class="btn primary full">
+Proceed to Payment
+</button>
+
+</div>
+
+</main>
+
+<script>
+
+const data = JSON.parse(localStorage.getItem("pendingOrder"));
+
+if(data){
+
+document.getElementById("checkoutDetails").innerHTML = `
+<h3>Plan: ${data.plan}</h3>
+<p>Price: ₹${Number(data.price).toLocaleString("en-IN")}</p>
+<p>Profile: ${data.instagramUrl}</p>
+<p>Name: ${data.playerName}</p>
+`;
+
+}
+
+function goPayment(){
+
+window.location.href =
+"payment.html";
+
+}
+
+</script>
+
+</body>
+</html>
