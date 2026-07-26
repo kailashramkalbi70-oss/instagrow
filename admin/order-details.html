@@ -1,1 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Order Details - InstaGrow Admin</title>
+
+<link rel="stylesheet" href="admin-style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- Admin Login Check -->
+
+<script>
+
+if (
+localStorage.getItem("adminLoggedIn") !== "true"
+) {
+
+window.location.href = "login.html";
+
+}
+
+</script>
+
+
+
+<!-- Header -->
+
+<header class="admin-header">
+
+<div class="admin-logo">
+📸 InstaGrow Admin
+</div>
+
+
+<nav>
+
+<a href="index.html">
+Home
+</a>
+
+<a href="dashboard.html">
+Dashboard
+</a>
+
+<a href="orders.html">
+Orders
+</a>
+
+<a href="users.html">
+Users
+</a>
+
+<button
+onclick="adminLogout()"
+class="logout-btn"
+>
+Logout
+</button>
+
+</nav>
+
+</header>
+
+
+
+<!-- Main Content -->
+
+<main class="admin-container">
+
+
+<a
+href="orders.html"
+class="back-link"
+>
+← Back to Orders
+</a>
+
+
+<h1>
+Order Details
+</h1>
+
+
+
+<!-- Order Details -->
+
+<div
+id="orderDetails"
+class="order-details-card"
+>
+
+<p>
+Loading order details...
+</p>
+
+</div>
+
+
+
+<!-- Status Update -->
+
+<div
+id="statusBox"
+class="status-update-card"
+style="display:none;"
+>
+
+<h2>
+Update Order Status
+</h2>
+
+
+<select id="orderStatus">
+
+<option value="Pending">
+Pending
+</option>
+
+<option value="Processing">
+Processing
+</option>
+
+<option value="Completed">
+Completed
+</option>
+
+<option value="Cancelled">
+Cancelled
+</option>
+
+</select>
+
+
+<button
+onclick="updateOrderStatus()"
+class="admin-button"
+>
+Update Status
+</button>
+
+</div>
+
+
+</main>
+
+
+
+<script>
+
+
+// Logout
+
+function adminLogout() {
+
+localStorage.removeItem(
+"adminLoggedIn"
+);
+
+window.location.href =
+"login.html";
+
+}
+
+
+
+// Get Order ID
+
+const urlParams =
+new URLSearchParams(
+window.location.search
+);
+
+const orderId =
+urlParams.get("id");
+
+
+
+// Get Orders
+
+let orders =
+JSON.parse(
+localStorage.getItem(
+"instagrowOrders"
+) || "[]"
+);
+
+
+
+// Find Order
+
+let orderIndex =
+orders.findIndex(
+order =>
+String(order.id) ===
+String(orderId)
+);
+
+
+
+// If ID not found,
+// try array index
+
+if (
+orderIndex === -1 &&
+orderId !== null
+) {
+
+const index =
+parseInt(orderId);
+
+if (
+!isNaN(index) &&
+orders[index]
+) {
+
+orderIndex = index;
+
+}
+
+}
+
+
+
+// Display Order
+
+const orderDetails =
+document.getElementById(
+"orderDetails"
+);
+
+
+if (
+orderIndex === -1
+) {
+
+
+orderDetails.innerHTML = `
+
+<div class="empty-state">
+
+<h2>
+❌ Order Not Found
+</h2>
+
+<p>
+The requested order does not exist.
+</p>
+
+<a
+href="orders.html"
+class="admin-button"
+>
+Back to Orders
+</a>
+
+</div>
+
+`;
+
+
+} else {
+
+
+const order =
+orders[orderIndex];
+
+
+orderDetails.innerHTML = `
+
+<div class="order-header">
+
+<h2>
+Order #${order.id || orderIndex + 1}
+</h2>
+
+<span class="order-status">
+${order.status || "Pending"}
+</span>
+
+</div>
+
+
+<div class="order-info-grid">
+
+
+<div class="detail-item">
+
+<strong>
+Customer Name
+</strong>
+
+<span>
+${order.name ||
+order.customerName ||
+order.playerName ||
+"N/A"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Email
+</strong>
+
+<span>
+${order.email || "N/A"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Instagram Profile
+</strong>
+
+<span>
+${order.instagram ||
+order.instagramUrl ||
+order.profileLink ||
+"N/A"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Instagram Username
+</strong>
+
+<span>
+${order.username || "N/A"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Selected Plan
+</strong>
+
+<span>
+${order.plan ||
+order.planName ||
+"N/A"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Amount
+</strong>
+
+<span>
+₹${Number(
+order.amount ||
+order.price ||
+0
+).toLocaleString("en-IN")}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Payment Status
+</strong>
+
+<span>
+${order.paymentStatus ||
+"Pending"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Transaction ID
+</strong>
+
+<span>
+${order.transactionId ||
+"N/A"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Order Date
+</strong>
+
+<span>
+${order.createdAt ||
+order.date ||
+"N/A"}
+</span>
+
+</div>
+
+
+</div>
+
+`;
+
+
+// Show Status Box
+
+document.getElementById(
+"statusBox"
+).style.display =
+"block";
+
+
+// Select Current Status
+
+document.getElementById(
+"orderStatus"
+).value =
+order.status ||
+"Pending";
+
+
+}
+
+
+
+// Update Order Status
+
+function updateOrderStatus() {
+
+
+if (
+orderIndex === -1
+) {
+
+alert(
+"Order not found."
+);
+
+return;
+
+}
+
+
+const newStatus =
+document.getElementById(
+"orderStatus"
+).value;
+
+
+orders[
+orderIndex
+].status =
+newStatus;
+
+
+
+// Save Updated Orders
+
+localStorage.setItem(
+
+"instagrowOrders",
+
+JSON.stringify(
+orders
+)
+
+);
+
+
+
+alert(
+"Order status updated successfully!"
+);
+
+
+
+// Reload Page
+
+location.reload();
+
+}
+
+
+</script>
+
+
+</body>
+
+</html><!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Order Details - InstaGrow Admin</title>
+
+<link rel="stylesheet" href="admin-style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- Admin Login Check -->
+
+<script>
+
+if (
+localStorage.getItem("adminLoggedIn") !== "true"
+) {
+
+window.location.href = "login.html";
+
+}
+
+</script>
+
+
+
+<!-- Header -->
+
+<header class="admin-header">
+
+<div class="admin-logo">
+📸 InstaGrow Admin
+</div>
+
+
+<nav>
+
+<a href="index.html">
+Home
+</a>
+
+<a href="dashboard.html">
+Dashboard
+</a>
+
+<a href="orders.html">
+Orders
+</a>
+
+<a href="users.html">
+Users
+</a>
+
+<button
+onclick="adminLogout()"
+class="logout-btn"
+>
+Logout
+</button>
+
+</nav>
+
+</header>
+
+
+
+<!-- Main Content -->
+
+<main class="admin-container">
+
+
+<a
+href="orders.html"
+class="back-link"
+>
+← Back to Orders
+</a>
+
+
+<h1>
+Order Details
+</h1>
+
+
+
+<!-- Order Details -->
+
+<div
+id="orderDetails"
+class="order-details-card"
+>
+
+<p>
+Loading order details...
+</p>
+
+</div>
+
+
+
+<!-- Status Update -->
+
+<div
+id="statusBox"
+class="status-update-card"
+style="display:none;"
+>
+
+<h2>
+Update Order Status
+</h2>
+
+
+<select id="orderStatus">
+
+<option value="Pending">
+Pending
+</option>
+
+<option value="Processing">
+Processing
+</option>
+
+<option value="Completed">
+Completed
+</option>
+
+<option value="Cancelled">
+Cancelled
+</option>
+
+</select>
+
+
+<button
+onclick="updateOrderStatus()"
+class="admin-button"
+>
+Update Status
+</button>
+
+</div>
+
+
+</main>
+
+
+
+<script>
+
+
+// Logout
+
+function adminLogout() {
+
+localStorage.removeItem(
+"adminLoggedIn"
+);
+
+window.location.href =
+"login.html";
+
+}
+
+
+
+// Get Order ID
+
+const urlParams =
+new URLSearchParams(
+window.location.search
+);
+
+const orderId =
+urlParams.get("id");
+
+
+
+// Get Orders
+
+let orders =
+JSON.parse(
+localStorage.getItem(
+"instagrowOrders"
+) || "[]"
+);
+
+
+
+// Find Order
+
+let orderIndex =
+orders.findIndex(
+order =>
+String(order.id) ===
+String(orderId)
+);
+
+
+
+// If ID not found,
+// try array index
+
+if (
+orderIndex === -1 &&
+orderId !== null
+) {
+
+const index =
+parseInt(orderId);
+
+if (
+!isNaN(index) &&
+orders[index]
+) {
+
+orderIndex = index;
+
+}
+
+}
+
+
+
+// Display Order
+
+const orderDetails =
+document.getElementById(
+"orderDetails"
+);
+
+
+if (
+orderIndex === -1
+) {
+
+
+orderDetails.innerHTML = `
+
+<div class="empty-state">
+
+<h2>
+❌ Order Not Found
+</h2>
+
+<p>
+The requested order does not exist.
+</p>
+
+<a
+href="orders.html"
+class="admin-button"
+>
+Back to Orders
+</a>
+
+</div>
+
+`;
+
+
+} else {
+
+
+const order =
+orders[orderIndex];
+
+
+orderDetails.innerHTML = `
+
+<div class="order-header">
+
+<h2>
+Order #${order.id || orderIndex + 1}
+</h2>
+
+<span class="order-status">
+${order.status || "Pending"}
+</span>
+
+</div>
+
+
+<div class="order-info-grid">
+
+
+<div class="detail-item">
+
+<strong>
+Customer Name
+</strong>
+
+<span>
+${order.name ||
+order.customerName ||
+order.playerName ||
+"N/A"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Email
+</strong>
+
+<span>
+${order.email || "N/A"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Instagram Profile
+</strong>
+
+<span>
+${order.instagram ||
+order.instagramUrl ||
+order.profileLink ||
+"N/A"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Instagram Username
+</strong>
+
+<span>
+${order.username || "N/A"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Selected Plan
+</strong>
+
+<span>
+${order.plan ||
+order.planName ||
+"N/A"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Amount
+</strong>
+
+<span>
+₹${Number(
+order.amount ||
+order.price ||
+0
+).toLocaleString("en-IN")}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Payment Status
+</strong>
+
+<span>
+${order.paymentStatus ||
+"Pending"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Transaction ID
+</strong>
+
+<span>
+${order.transactionId ||
+"N/A"}
+</span>
+
+</div>
+
+
+
+<div class="detail-item">
+
+<strong>
+Order Date
+</strong>
+
+<span>
+${order.createdAt ||
+order.date ||
+"N/A"}
+</span>
+
+</div>
+
+
+</div>
+
+`;
+
+
+// Show Status Box
+
+document.getElementById(
+"statusBox"
+).style.display =
+"block";
+
+
+// Select Current Status
+
+document.getElementById(
+"orderStatus"
+).value =
+order.status ||
+"Pending";
+
+
+}
+
+
+
+// Update Order Status
+
+function updateOrderStatus() {
+
+
+if (
+orderIndex === -1
+) {
+
+alert(
+"Order not found."
+);
+
+return;
+
+}
+
+
+const newStatus =
+document.getElementById(
+"orderStatus"
+).value;
+
+
+orders[
+orderIndex
+].status =
+newStatus;
+
+
+
+// Save Updated Orders
+
+localStorage.setItem(
+
+"instagrowOrders",
+
+JSON.stringify(
+orders
+)
+
+);
+
+
+
+alert(
+"Order status updated successfully!"
+);
+
+
+
+// Reload Page
+
+location.reload();
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
