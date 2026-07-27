@@ -1,127 +1,435 @@
-document.addEventListener("DOMContentLoaded",()=>{
+// ========================================
+// InstaGrow - Order System
+// ========================================
 
-const params =
-new URLSearchParams(location.search);
+document.addEventListener("DOMContentLoaded", function () {
 
-const plan =
-params.get("plan");
+    // ----------------------------------------
+    // GET PLAN DETAILS FROM URL
+    // Example:
+    // order.html?plan=25000&price=1000
+    // ----------------------------------------
 
-const price =
-params.get("price");
+    const params = new URLSearchParams(window.location.search);
 
-const selectedPlan =
-document.getElementById("selectedPlan");
+    const plan = params.get("plan");
+    const price = params.get("price");
 
-if(selectedPlan && plan){
+    const selectedPlan = document.getElementById("selectedPlan");
 
-selectedPlan.innerHTML = `
-<div class="info-box">
-<h2>${Number(plan).toLocaleString("en-IN")} Followers</h2>
-<h3>₹${Number(price).toLocaleString("en-IN")}</h3>
-</div>
-`;
+    // ----------------------------------------
+    // SHOW SELECTED PLAN
+    // ----------------------------------------
 
-}
+    if (selectedPlan) {
 
+        if (plan && price) {
 
-const orderForm =
-document.getElementById("orderForm");
+            selectedPlan.innerHTML = `
+                <div>
+                    <strong>📦 Selected Plan</strong>
+                </div>
 
-if(orderForm){
+                <div style="margin-top:8px;">
+                    ${Number(plan).toLocaleString("en-IN")} Followers
+                </div>
 
-orderForm.addEventListener("submit",(e)=>{
+                <div style="margin-top:5px;">
+                    ₹${Number(price).toLocaleString("en-IN")}
+                </div>
+            `;
 
-e.preventDefault();
+        } else {
 
-const instagramUrl =
-document.getElementById("instagramUrl").value.trim();
+            selectedPlan.innerHTML = `
+                <strong>⚠️ No Plan Selected</strong>
+                <p style="margin-top:8px;">
+                    Please go back and select a plan.
+                </p>
+            `;
 
-const playerName =
-document.getElementById("playerName").value.trim();
+        }
 
-if(!instagramUrl.includes("instagram.com")){
-
-alert("Please enter a valid Instagram profile URL.");
-
-return;
-
-}
-
-const pendingOrder = {
-
-plan,
-price,
-instagramUrl,
-playerName
-
-};
-
-localStorage.setItem(
-"pendingOrder",
-JSON.stringify(pendingOrder)
-);
-
-location.href="checkout.html";
-
-});
+    }
 
 
-}
+    // ----------------------------------------
+    // ORDER FORM
+    // ----------------------------------------
+
+    const orderForm = document.getElementById("orderForm");
+
+    if (orderForm) {
+
+        orderForm.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            const instagramUrl =
+                document.getElementById("instagramUrl").value.trim();
+
+            const playerName =
+                document.getElementById("playerName").value.trim();
 
 
-const ordersList =
-document.getElementById("ordersList");
+            // ----------------------------------------
+            // VALIDATION
+            // ----------------------------------------
 
-if(ordersList){
+            if (!plan || !price) {
 
-const orders =
-JSON.parse(localStorage.getItem("orders") || "[]");
+                alert(
+                    "Please select a plan first."
+                );
 
-if(!orders.length){
+                window.location.href =
+                    "plans.html";
 
-ordersList.innerHTML =
-"<p>No orders found.</p>";
+                return;
 
-}else{
+            }
 
-ordersList.innerHTML =
-orders.map(order=>`
 
-<div class="order-item">
+            if (!instagramUrl) {
 
-<h3>Order ${order.id}</h3>
+                alert(
+                    "Please enter your Instagram profile URL."
+                );
 
-<p>
-Plan:
-${Number(order.plan).toLocaleString("en-IN")}
-Followers
-</p>
+                return;
 
-<p>
-Price:
-₹${Number(order.price).toLocaleString("en-IN")}
-</p>
+            }
 
-<p>
-Status:
-<span class="status">
-${order.status}
-</span>
-</p>
 
-<a
-class="btn secondary"
-href="order-details.html?id=${order.id}"
->
-View Details
-</a>
+            if (!instagramUrl.includes("instagram.com")) {
 
-</div>
+                alert(
+                    "Please enter a valid Instagram profile URL."
+                );
 
-`).join("");
+                return;
 
-}
+            }
 
-}
+
+            if (!playerName) {
+
+                alert(
+                    "Please enter your name."
+                );
+
+                return;
+
+            }
+
+
+            // ----------------------------------------
+            // CREATE ORDER ID
+            // ----------------------------------------
+
+            const orderId =
+                "IG" +
+                Date.now().toString().slice(-8);
+
+
+            // ----------------------------------------
+            // CREATE ORDER OBJECT
+            // ----------------------------------------
+
+            const order = {
+
+                id: orderId,
+
+                plan: Number(plan),
+
+                price: Number(price),
+
+                instagramUrl:
+                    instagramUrl,
+
+                playerName:
+                    playerName,
+
+                status:
+                    "Pending",
+
+                paymentStatus:
+                    "Pending",
+
+                date:
+                    new Date().toLocaleString(
+                        "en-IN"
+                    )
+
+            };
+
+
+            // ----------------------------------------
+            // GET OLD ORDERS
+            // ----------------------------------------
+
+            let orders =
+                JSON.parse(
+                    localStorage.getItem(
+                        "orders"
+                    )
+                ) || [];
+
+
+            // ----------------------------------------
+            // ADD NEW ORDER
+            // ----------------------------------------
+
+            orders.unshift(order);
+
+
+            // ----------------------------------------
+            // SAVE ORDER
+            // ----------------------------------------
+
+            localStorage.setItem(
+                "orders",
+                JSON.stringify(orders)
+            );
+
+
+            // ----------------------------------------
+            // SAVE CURRENT ORDER
+            // ----------------------------------------
+
+            localStorage.setItem(
+                "currentOrder",
+                JSON.stringify(order)
+            );
+
+
+            // ----------------------------------------
+            // GO TO CHECKOUT
+            // ----------------------------------------
+
+            window.location.href =
+                "checkout.html?id=" +
+                encodeURIComponent(orderId);
+
+        });
+
+    }
+
+});// ========================================
+// InstaGrow - Order System
+// ========================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // ----------------------------------------
+    // GET PLAN DETAILS FROM URL
+    // Example:
+    // order.html?plan=25000&price=1000
+    // ----------------------------------------
+
+    const params = new URLSearchParams(window.location.search);
+
+    const plan = params.get("plan");
+    const price = params.get("price");
+
+    const selectedPlan = document.getElementById("selectedPlan");
+
+    // ----------------------------------------
+    // SHOW SELECTED PLAN
+    // ----------------------------------------
+
+    if (selectedPlan) {
+
+        if (plan && price) {
+
+            selectedPlan.innerHTML = `
+                <div>
+                    <strong>📦 Selected Plan</strong>
+                </div>
+
+                <div style="margin-top:8px;">
+                    ${Number(plan).toLocaleString("en-IN")} Followers
+                </div>
+
+                <div style="margin-top:5px;">
+                    ₹${Number(price).toLocaleString("en-IN")}
+                </div>
+            `;
+
+        } else {
+
+            selectedPlan.innerHTML = `
+                <strong>⚠️ No Plan Selected</strong>
+                <p style="margin-top:8px;">
+                    Please go back and select a plan.
+                </p>
+            `;
+
+        }
+
+    }
+
+
+    // ----------------------------------------
+    // ORDER FORM
+    // ----------------------------------------
+
+    const orderForm = document.getElementById("orderForm");
+
+    if (orderForm) {
+
+        orderForm.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            const instagramUrl =
+                document.getElementById("instagramUrl").value.trim();
+
+            const playerName =
+                document.getElementById("playerName").value.trim();
+
+
+            // ----------------------------------------
+            // VALIDATION
+            // ----------------------------------------
+
+            if (!plan || !price) {
+
+                alert(
+                    "Please select a plan first."
+                );
+
+                window.location.href =
+                    "plans.html";
+
+                return;
+
+            }
+
+
+            if (!instagramUrl) {
+
+                alert(
+                    "Please enter your Instagram profile URL."
+                );
+
+                return;
+
+            }
+
+
+            if (!instagramUrl.includes("instagram.com")) {
+
+                alert(
+                    "Please enter a valid Instagram profile URL."
+                );
+
+                return;
+
+            }
+
+
+            if (!playerName) {
+
+                alert(
+                    "Please enter your name."
+                );
+
+                return;
+
+            }
+
+
+            // ----------------------------------------
+            // CREATE ORDER ID
+            // ----------------------------------------
+
+            const orderId =
+                "IG" +
+                Date.now().toString().slice(-8);
+
+
+            // ----------------------------------------
+            // CREATE ORDER OBJECT
+            // ----------------------------------------
+
+            const order = {
+
+                id: orderId,
+
+                plan: Number(plan),
+
+                price: Number(price),
+
+                instagramUrl:
+                    instagramUrl,
+
+                playerName:
+                    playerName,
+
+                status:
+                    "Pending",
+
+                paymentStatus:
+                    "Pending",
+
+                date:
+                    new Date().toLocaleString(
+                        "en-IN"
+                    )
+
+            };
+
+
+            // ----------------------------------------
+            // GET OLD ORDERS
+            // ----------------------------------------
+
+            let orders =
+                JSON.parse(
+                    localStorage.getItem(
+                        "orders"
+                    )
+                ) || [];
+
+
+            // ----------------------------------------
+            // ADD NEW ORDER
+            // ----------------------------------------
+
+            orders.unshift(order);
+
+
+            // ----------------------------------------
+            // SAVE ORDER
+            // ----------------------------------------
+
+            localStorage.setItem(
+                "orders",
+                JSON.stringify(orders)
+            );
+
+
+            // ----------------------------------------
+            // SAVE CURRENT ORDER
+            // ----------------------------------------
+
+            localStorage.setItem(
+                "currentOrder",
+                JSON.stringify(order)
+            );
+
+
+            // ----------------------------------------
+            // GO TO CHECKOUT
+            // ----------------------------------------
+
+            window.location.href =
+                "checkout.html?id=" +
+                encodeURIComponent(orderId);
+
+        });
+
+    }
 
 });
