@@ -1,50 +1,532 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
 <title>Checkout - InstaGrow</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
+<!-- HEADER -->
+
 <header class="header">
-<a href="index.html" class="logo">📸 InstaGrow</a>
+
+<a href="index.html" class="logo">
+
+<img
+src="images/logo.png"
+alt="InstaGrow Logo"
+>
+
+<span>InstaGrow</span>
+
+</a>
+
+<a
+href="plans.html"
+class="btn secondary"
+>
+Back
+</a>
+
 </header>
+
+
+<!-- CHECKOUT -->
 
 <main class="section">
 
 <div class="checkout-card">
 
-<h1>Checkout</h1>
+<h1>🛒 Checkout</h1>
 
-<div id="checkoutDetails"></div>
+<p>
+Review your order details before continuing.
+</p>
 
-<button onclick="goPayment()" class="btn primary full">
-Proceed to Payment
+
+<!-- ORDER DETAILS -->
+
+<div
+id="checkoutDetails"
+class="checkout-details"
+>
+
+Loading order details...
+
+</div>
+
+
+<!-- PAYMENT BUTTON -->
+
+<button
+onclick="goPayment()"
+class="btn primary full"
+>
+💳 Proceed to Payment
 </button>
+
+
+<br><br>
+
+
+<a
+href="plans.html"
+class="btn secondary full"
+>
+← Change Plan
+</a>
 
 </div>
 
 </main>
 
+
 <script>
 
-const data = JSON.parse(localStorage.getItem("pendingOrder"));
+// ========================================
+// GET CURRENT ORDER
+// ========================================
 
-if(data){
+const order =
+JSON.parse(
+localStorage.getItem("currentOrder")
+);
 
-document.getElementById("checkoutDetails").innerHTML = `
-<h3>Plan: ${data.plan}</h3>
-<p>Price: ₹${Number(data.price).toLocaleString("en-IN")}</p>
-<p>Profile: ${data.instagramUrl}</p>
-<p>Name: ${data.playerName}</p>
+
+// ========================================
+// CHECK ORDER
+// ========================================
+
+if(order){
+
+document.getElementById(
+"checkoutDetails"
+).innerHTML = `
+
+<div class="checkout-summary">
+
+<div class="checkout-row">
+
+<span>📦 Plan</span>
+
+<strong>
+${Number(order.plan).toLocaleString("en-IN")}
+Followers
+</strong>
+
+</div>
+
+
+<div class="checkout-row">
+
+<span>💰 Price</span>
+
+<strong class="checkout-price">
+₹${Number(order.price).toLocaleString("en-IN")}
+</strong>
+
+</div>
+
+
+<div class="checkout-row">
+
+<span>📸 Instagram</span>
+
+<strong>
+${order.instagramUrl}
+</strong>
+
+</div>
+
+
+<div class="checkout-row">
+
+<span>👤 Name</span>
+
+<strong>
+${order.playerName}
+</strong>
+
+</div>
+
+
+<div class="checkout-row">
+
+<span>🆔 Order ID</span>
+
+<strong>
+${order.id}
+</strong>
+
+</div>
+
+
+<div class="checkout-status">
+
+<span>Order Status</span>
+
+<b>
+${order.status}
+</b>
+
+</div>
+
+</div>
+
 `;
 
 }
 
+
+// ========================================
+// NO ORDER FOUND
+// ========================================
+
+else{
+
+document.getElementById(
+"checkoutDetails"
+).innerHTML = `
+
+<div class="warning">
+
+<h3>⚠️ No Order Found</h3>
+
+<p>
+Please select a plan and create an order first.
+</p>
+
+<br>
+
+<a
+href="plans.html"
+class="btn primary"
+>
+View Plans
+</a>
+
+</div>
+
+`;
+
+}
+
+
+// ========================================
+// GO TO PAYMENT
+// ========================================
+
 function goPayment(){
+
+const order =
+JSON.parse(
+localStorage.getItem("currentOrder")
+);
+
+
+if(!order){
+
+alert(
+"Please create an order first."
+);
+
+window.location.href =
+"plans.html";
+
+return;
+
+}
+
+
+// Save order for payment page
+
+localStorage.setItem(
+"paymentOrder",
+JSON.stringify(order)
+);
+
+
+// Open Payment Page
+
+window.location.href =
+"payment.html";
+
+}
+
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Checkout - InstaGrow</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+<a href="index.html" class="logo">
+
+<img
+src="images/logo.png"
+alt="InstaGrow Logo"
+>
+
+<span>InstaGrow</span>
+
+</a>
+
+<a
+href="plans.html"
+class="btn secondary"
+>
+Back
+</a>
+
+</header>
+
+
+<!-- CHECKOUT -->
+
+<main class="section">
+
+<div class="checkout-card">
+
+<h1>🛒 Checkout</h1>
+
+<p>
+Review your order details before continuing.
+</p>
+
+
+<!-- ORDER DETAILS -->
+
+<div
+id="checkoutDetails"
+class="checkout-details"
+>
+
+Loading order details...
+
+</div>
+
+
+<!-- PAYMENT BUTTON -->
+
+<button
+onclick="goPayment()"
+class="btn primary full"
+>
+💳 Proceed to Payment
+</button>
+
+
+<br><br>
+
+
+<a
+href="plans.html"
+class="btn secondary full"
+>
+← Change Plan
+</a>
+
+</div>
+
+</main>
+
+
+<script>
+
+// ========================================
+// GET CURRENT ORDER
+// ========================================
+
+const order =
+JSON.parse(
+localStorage.getItem("currentOrder")
+);
+
+
+// ========================================
+// CHECK ORDER
+// ========================================
+
+if(order){
+
+document.getElementById(
+"checkoutDetails"
+).innerHTML = `
+
+<div class="checkout-summary">
+
+<div class="checkout-row">
+
+<span>📦 Plan</span>
+
+<strong>
+${Number(order.plan).toLocaleString("en-IN")}
+Followers
+</strong>
+
+</div>
+
+
+<div class="checkout-row">
+
+<span>💰 Price</span>
+
+<strong class="checkout-price">
+₹${Number(order.price).toLocaleString("en-IN")}
+</strong>
+
+</div>
+
+
+<div class="checkout-row">
+
+<span>📸 Instagram</span>
+
+<strong>
+${order.instagramUrl}
+</strong>
+
+</div>
+
+
+<div class="checkout-row">
+
+<span>👤 Name</span>
+
+<strong>
+${order.playerName}
+</strong>
+
+</div>
+
+
+<div class="checkout-row">
+
+<span>🆔 Order ID</span>
+
+<strong>
+${order.id}
+</strong>
+
+</div>
+
+
+<div class="checkout-status">
+
+<span>Order Status</span>
+
+<b>
+${order.status}
+</b>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+// ========================================
+// NO ORDER FOUND
+// ========================================
+
+else{
+
+document.getElementById(
+"checkoutDetails"
+).innerHTML = `
+
+<div class="warning">
+
+<h3>⚠️ No Order Found</h3>
+
+<p>
+Please select a plan and create an order first.
+</p>
+
+<br>
+
+<a
+href="plans.html"
+class="btn primary"
+>
+View Plans
+</a>
+
+</div>
+
+`;
+
+}
+
+
+// ========================================
+// GO TO PAYMENT
+// ========================================
+
+function goPayment(){
+
+const order =
+JSON.parse(
+localStorage.getItem("currentOrder")
+);
+
+
+if(!order){
+
+alert(
+"Please create an order first."
+);
+
+window.location.href =
+"plans.html";
+
+return;
+
+}
+
+
+// Save order for payment page
+
+localStorage.setItem(
+"paymentOrder",
+JSON.stringify(order)
+);
+
+
+// Open Payment Page
 
 window.location.href =
 "payment.html";
