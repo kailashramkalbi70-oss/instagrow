@@ -1,53 +1,373 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>Place Order - InstaGrow</title>
+
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="responsive.css">
+
 </head>
 
 <body>
 
+<!-- HEADER -->
+
 <header class="header">
-<a href="index.html" class="logo">📸 InstaGrow</a>
+
+    <a href="index.html" class="logo">
+
+        <img
+        src="images/logo.png"
+        alt="InstaGrow Logo"
+        >
+
+        <span>InstaGrow</span>
+
+    </a>
+
+    <nav class="desktop-nav">
+
+        <a href="index.html">Home</a>
+
+        <a href="plans.html">Plans</a>
+
+        <a href="my-orders.html">Orders</a>
+
+        <a href="support.html">Support</a>
+
+        <a href="profile.html">Profile</a>
+
+    </nav>
+
+    <button
+    class="menu-btn"
+    onclick="toggleMenu()">
+
+        ☰
+
+    </button>
+
 </header>
 
-<main class="auth-page">
 
-<div class="auth-card">
+<!-- MOBILE MENU -->
 
-<h1>Place Your Order</h1>
+<div
+id="mobileMenu"
+class="mobile-menu">
 
-<div id="selectedPlan"></div>
+    <a href="index.html">
+        🏠 Home
+    </a>
 
-<form id="orderForm">
+    <a href="plans.html">
+        📦 Plans
+    </a>
 
-<input
-type="text"
-id="instagramUrl"
-placeholder="https://www.instagram.com/username"
-required
->
+    <a href="my-orders.html">
+        📋 My Orders
+    </a>
 
-<input
-type="text"
-id="playerName"
-placeholder="Your Name"
-required
->
+    <a href="profile.html">
+        👤 Profile
+    </a>
 
-<button class="btn primary full">
-Continue to Checkout
-</button>
+    <a href="support.html">
+        💬 Support
+    </a>
 
-</form>
+    <a href="login.html">
+        🔐 Login
+    </a>
 
 </div>
 
+
+<!-- ORDER PAGE -->
+
+<main class="auth-page">
+
+    <div class="checkout-card">
+
+        <div class="icon">
+            📦
+        </div>
+
+        <h1>
+            Place Your Order
+        </h1>
+
+        <p>
+            Enter your Instagram details to continue.
+        </p>
+
+
+        <!-- SELECTED PLAN -->
+
+        <div
+        id="selectedPlan"
+        class="upi-box">
+
+            Loading selected plan...
+
+        </div>
+
+
+        <!-- ORDER FORM -->
+
+        <form id="orderForm">
+
+
+            <label>
+                Instagram Profile URL
+            </label>
+
+            <input
+            type="url"
+            id="instagramUrl"
+            placeholder="https://www.instagram.com/username"
+            required
+            >
+
+
+            <label>
+                Your Name
+            </label>
+
+            <input
+            type="text"
+            id="playerName"
+            placeholder="Enter your name"
+            required
+            >
+
+
+            <button
+            type="submit"
+            class="btn primary full">
+
+                Continue to Checkout
+
+            </button>
+
+
+        </form>
+
+
+        <br>
+
+
+        <a
+        href="plans.html"
+        class="btn secondary full">
+
+            ← Change Plan
+
+        </a>
+
+    </div>
+
 </main>
 
+
+<!-- JAVASCRIPT -->
+
+<script src="script.js"></script>
+
 <script src="orders.js"></script>
+
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Place Order - InstaGrow</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="responsive.css">
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <a href="index.html" class="logo">
+
+        <img
+        src="images/logo.png"
+        alt="InstaGrow Logo"
+        >
+
+        <span>InstaGrow</span>
+
+    </a>
+
+    <nav class="desktop-nav">
+
+        <a href="index.html">Home</a>
+
+        <a href="plans.html">Plans</a>
+
+        <a href="my-orders.html">Orders</a>
+
+        <a href="support.html">Support</a>
+
+        <a href="profile.html">Profile</a>
+
+    </nav>
+
+    <button
+    class="menu-btn"
+    onclick="toggleMenu()">
+
+        ☰
+
+    </button>
+
+</header>
+
+
+<!-- MOBILE MENU -->
+
+<div
+id="mobileMenu"
+class="mobile-menu">
+
+    <a href="index.html">
+        🏠 Home
+    </a>
+
+    <a href="plans.html">
+        📦 Plans
+    </a>
+
+    <a href="my-orders.html">
+        📋 My Orders
+    </a>
+
+    <a href="profile.html">
+        👤 Profile
+    </a>
+
+    <a href="support.html">
+        💬 Support
+    </a>
+
+    <a href="login.html">
+        🔐 Login
+    </a>
+
+</div>
+
+
+<!-- ORDER PAGE -->
+
+<main class="auth-page">
+
+    <div class="checkout-card">
+
+        <div class="icon">
+            📦
+        </div>
+
+        <h1>
+            Place Your Order
+        </h1>
+
+        <p>
+            Enter your Instagram details to continue.
+        </p>
+
+
+        <!-- SELECTED PLAN -->
+
+        <div
+        id="selectedPlan"
+        class="upi-box">
+
+            Loading selected plan...
+
+        </div>
+
+
+        <!-- ORDER FORM -->
+
+        <form id="orderForm">
+
+
+            <label>
+                Instagram Profile URL
+            </label>
+
+            <input
+            type="url"
+            id="instagramUrl"
+            placeholder="https://www.instagram.com/username"
+            required
+            >
+
+
+            <label>
+                Your Name
+            </label>
+
+            <input
+            type="text"
+            id="playerName"
+            placeholder="Enter your name"
+            required
+            >
+
+
+            <button
+            type="submit"
+            class="btn primary full">
+
+                Continue to Checkout
+
+            </button>
+
+
+        </form>
+
+
+        <br>
+
+
+        <a
+        href="plans.html"
+        class="btn secondary full">
+
+            ← Change Plan
+
+        </a>
+
+    </div>
+
+</main>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="script.js"></script>
+
+<script src="orders.js"></script>
+
 
 </body>
 </html>
