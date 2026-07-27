@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InstaGrow - Home</title>
+
+<title>InstaGrow - Instagram Growth Platform</title>
+
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="responsive.css">
 <link rel="manifest" href="manifest.json">
@@ -11,34 +13,58 @@
 
 <body>
 
+<!-- HEADER -->
 <header class="header">
-    <a href="index.html" class="logo">📸 InstaGrow</a>
 
-    <nav>
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="InstaGrow Logo">
+        <span>InstaGrow</span>
+    </a>
+
+    <nav class="desktop-nav">
         <a href="index.html">Home</a>
         <a href="plans.html">Plans</a>
         <a href="my-orders.html">Orders</a>
         <a href="support.html">Support</a>
-        <a href="login.html">Login</a>
+        <a href="profile.html">Profile</a>
     </nav>
 
     <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
 </header>
 
+
+<!-- MOBILE MENU -->
 <div id="mobileMenu" class="mobile-menu">
+
     <a href="index.html">🏠 Home</a>
+
     <a href="plans.html">📦 Plans</a>
+
     <a href="my-orders.html">📋 My Orders</a>
+
     <a href="profile.html">👤 Profile</a>
+
     <a href="support.html">💬 Support</a>
+
     <a href="login.html">🔐 Login</a>
+
 </div>
 
-<section class="hero">
-    <div class="hero-content">
-        <span class="badge">🚀 Instagram Growth Platform</span>
 
-        <h1>Grow Your Instagram With <span>InstaGrow</span></h1>
+<!-- HERO BANNER -->
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="badge">
+            🚀 Instagram Growth Platform
+        </span>
+
+        <h1>
+            Grow Your Instagram With
+            <span>InstaGrow</span>
+        </h1>
 
         <p>
             Choose your plan, submit your public Instagram profile URL
@@ -46,119 +72,598 @@
         </p>
 
         <div class="hero-buttons">
-            <a href="plans.html" class="btn primary">View Plans</a>
-            <a href="register.html" class="btn secondary">Create Account</a>
+
+            <a href="plans.html" class="btn primary">
+                View Plans
+            </a>
+
+            <a href="register.html" class="btn secondary">
+                Create Account
+            </a>
+
         </div>
+
     </div>
+
 </section>
 
+
+<!-- WHY CHOOSE US -->
 <section class="section">
+
     <h2>Why Choose InstaGrow?</h2>
 
     <div class="grid">
 
         <div class="card">
+
             <div class="icon">⚡</div>
+
             <h3>Easy Ordering</h3>
-            <p>Choose your preferred plan and place an order easily.</p>
+
+            <p>
+                Choose your preferred plan and place an order easily.
+            </p>
+
         </div>
 
+
         <div class="card">
+
             <div class="icon">🔗</div>
+
             <h3>Profile URL</h3>
-            <p>Submit your public Instagram profile URL.</p>
+
+            <p>
+                Submit your public Instagram profile URL.
+            </p>
+
         </div>
 
+
         <div class="card">
+
             <div class="icon">📦</div>
+
             <h3>Order Tracking</h3>
-            <p>Track your order status from your account.</p>
+
+            <p>
+                Track your order status from your account.
+            </p>
+
         </div>
 
+
         <div class="card">
+
             <div class="icon">💬</div>
+
             <h3>Support</h3>
-            <p>Contact support whenever you need assistance.</p>
+
+            <p>
+                Contact support whenever you need assistance.
+            </p>
+
         </div>
 
     </div>
+
 </section>
 
+
+<!-- POPULAR PLANS -->
 <section class="section dark-section">
-    <h2>Popular Plans</h2>
+
+    <h2>Popular Followers Plans</h2>
 
     <div class="grid">
 
+
+        <!-- PLAN 1 -->
         <div class="plan-card">
+
             <h3>10,000 Followers</h3>
+
             <h2>₹500</h2>
-            <a href="order.html?plan=10000&price=500" class="btn primary">
+
+            <a
+                href="order.html?plan=10000&price=500"
+                class="btn primary"
+            >
                 Order Now
             </a>
+
         </div>
 
+
+        <!-- PLAN 2 -->
         <div class="plan-card featured">
-            <span class="popular">POPULAR</span>
+
+            <span class="popular">
+                POPULAR
+            </span>
+
             <h3>25,000 Followers</h3>
+
             <h2>₹1,000</h2>
-            <a href="order.html?plan=25000&price=1000" class="btn primary">
+
+            <a
+                href="order.html?plan=25000&price=1000"
+                class="btn primary"
+            >
                 Order Now
             </a>
+
         </div>
 
+
+        <!-- PLAN 3 -->
         <div class="plan-card">
+
             <h3>65,000 Followers</h3>
+
             <h2>₹2,500</h2>
-            <a href="order.html?plan=65000&price=2500" class="btn primary">
+
+            <a
+                href="order.html?plan=65000&price=2500"
+                class="btn primary"
+            >
                 Order Now
             </a>
+
         </div>
 
+
+        <!-- PLAN 4 -->
         <div class="plan-card">
+
             <h3>75,000 Followers</h3>
+
             <h2>₹3,000</h2>
-            <a href="order.html?plan=75000&price=3000" class="btn primary">
+
+            <a
+                href="order.html?plan=75000&price=3000"
+                class="btn primary"
+            >
                 Order Now
             </a>
+
         </div>
 
+
+        <!-- PLAN 5 -->
         <div class="plan-card">
+
             <h3>100,000 Followers</h3>
+
             <h2>₹5,000</h2>
-            <a href="order.html?plan=100000&price=5000" class="btn primary">
+
+            <a
+                href="order.html?plan=100000&price=5000"
+                class="btn primary"
+            >
                 Order Now
             </a>
+
         </div>
 
     </div>
+
 </section>
 
+
+<!-- VERIFICATION INFO -->
 <section class="section">
+
     <div class="info-box">
-        <h2>🔵 Instagram Verification Assistance</h2>
+
+        <h2>
+            🔵 Instagram Verification Assistance
+        </h2>
+
         <p>
             Learn about Instagram verification eligibility and available
             assistance. Approval depends on Instagram's policies and
             eligibility requirements.
         </p>
-        <a href="support.html" class="btn secondary">Learn More</a>
+
+        <br>
+
+        <a
+            href="support.html"
+            class="btn secondary"
+        >
+            Learn More
+        </a>
+
     </div>
+
 </section>
 
-<footer>
-    <h3>📸 InstaGrow</h3>
-    <p>Instagram growth services platform.</p>
 
-    <div class="footer-links">
-        <a href="about.html">About</a>
-        <a href="terms.html">Terms</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="refund.html">Refund</a>
+<!-- FOOTER -->
+<footer>
+
+    <div class="footer-logo">
+
+        <img
+            src="images/logo.png"
+            alt="InstaGrow Logo"
+        >
+
+        <h3>InstaGrow</h3>
+
     </div>
 
-    <p>© 2026 InstaGrow. All Rights Reserved.</p>
+    <p>
+        Instagram growth services platform.
+    </p>
+
+
+    <div class="footer-links">
+
+        <a href="about.html">
+            About
+        </a>
+
+        <a href="terms.html">
+            Terms
+        </a>
+
+        <a href="privacy.html">
+            Privacy
+        </a>
+
+        <a href="refund.html">
+            Refund
+        </a>
+
+    </div>
+
+
+    <p>
+        © 2026 InstaGrow. All Rights Reserved.
+    </p>
+
 </footer>
 
+
+<!-- JAVASCRIPT -->
 <script src="script.js"></script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>InstaGrow - Instagram Growth Platform</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="responsive.css">
+<link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="InstaGrow Logo">
+        <span>InstaGrow</span>
+    </a>
+
+    <nav class="desktop-nav">
+        <a href="index.html">Home</a>
+        <a href="plans.html">Plans</a>
+        <a href="my-orders.html">Orders</a>
+        <a href="support.html">Support</a>
+        <a href="profile.html">Profile</a>
+    </nav>
+
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+</header>
+
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu" class="mobile-menu">
+
+    <a href="index.html">🏠 Home</a>
+
+    <a href="plans.html">📦 Plans</a>
+
+    <a href="my-orders.html">📋 My Orders</a>
+
+    <a href="profile.html">👤 Profile</a>
+
+    <a href="support.html">💬 Support</a>
+
+    <a href="login.html">🔐 Login</a>
+
+</div>
+
+
+<!-- HERO BANNER -->
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="badge">
+            🚀 Instagram Growth Platform
+        </span>
+
+        <h1>
+            Grow Your Instagram With
+            <span>InstaGrow</span>
+        </h1>
+
+        <p>
+            Choose your plan, submit your public Instagram profile URL
+            and manage your order easily.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="plans.html" class="btn primary">
+                View Plans
+            </a>
+
+            <a href="register.html" class="btn secondary">
+                Create Account
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- WHY CHOOSE US -->
+<section class="section">
+
+    <h2>Why Choose InstaGrow?</h2>
+
+    <div class="grid">
+
+        <div class="card">
+
+            <div class="icon">⚡</div>
+
+            <h3>Easy Ordering</h3>
+
+            <p>
+                Choose your preferred plan and place an order easily.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🔗</div>
+
+            <h3>Profile URL</h3>
+
+            <p>
+                Submit your public Instagram profile URL.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">📦</div>
+
+            <h3>Order Tracking</h3>
+
+            <p>
+                Track your order status from your account.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">💬</div>
+
+            <h3>Support</h3>
+
+            <p>
+                Contact support whenever you need assistance.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- POPULAR PLANS -->
+<section class="section dark-section">
+
+    <h2>Popular Followers Plans</h2>
+
+    <div class="grid">
+
+
+        <!-- PLAN 1 -->
+        <div class="plan-card">
+
+            <h3>10,000 Followers</h3>
+
+            <h2>₹500</h2>
+
+            <a
+                href="order.html?plan=10000&price=500"
+                class="btn primary"
+            >
+                Order Now
+            </a>
+
+        </div>
+
+
+        <!-- PLAN 2 -->
+        <div class="plan-card featured">
+
+            <span class="popular">
+                POPULAR
+            </span>
+
+            <h3>25,000 Followers</h3>
+
+            <h2>₹1,000</h2>
+
+            <a
+                href="order.html?plan=25000&price=1000"
+                class="btn primary"
+            >
+                Order Now
+            </a>
+
+        </div>
+
+
+        <!-- PLAN 3 -->
+        <div class="plan-card">
+
+            <h3>65,000 Followers</h3>
+
+            <h2>₹2,500</h2>
+
+            <a
+                href="order.html?plan=65000&price=2500"
+                class="btn primary"
+            >
+                Order Now
+            </a>
+
+        </div>
+
+
+        <!-- PLAN 4 -->
+        <div class="plan-card">
+
+            <h3>75,000 Followers</h3>
+
+            <h2>₹3,000</h2>
+
+            <a
+                href="order.html?plan=75000&price=3000"
+                class="btn primary"
+            >
+                Order Now
+            </a>
+
+        </div>
+
+
+        <!-- PLAN 5 -->
+        <div class="plan-card">
+
+            <h3>100,000 Followers</h3>
+
+            <h2>₹5,000</h2>
+
+            <a
+                href="order.html?plan=100000&price=5000"
+                class="btn primary"
+            >
+                Order Now
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- VERIFICATION INFO -->
+<section class="section">
+
+    <div class="info-box">
+
+        <h2>
+            🔵 Instagram Verification Assistance
+        </h2>
+
+        <p>
+            Learn about Instagram verification eligibility and available
+            assistance. Approval depends on Instagram's policies and
+            eligibility requirements.
+        </p>
+
+        <br>
+
+        <a
+            href="support.html"
+            class="btn secondary"
+        >
+            Learn More
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="footer-logo">
+
+        <img
+            src="images/logo.png"
+            alt="InstaGrow Logo"
+        >
+
+        <h3>InstaGrow</h3>
+
+    </div>
+
+    <p>
+        Instagram growth services platform.
+    </p>
+
+
+    <div class="footer-links">
+
+        <a href="about.html">
+            About
+        </a>
+
+        <a href="terms.html">
+            Terms
+        </a>
+
+        <a href="privacy.html">
+            Privacy
+        </a>
+
+        <a href="refund.html">
+            Refund
+        </a>
+
+    </div>
+
+
+    <p>
+        © 2026 InstaGrow. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+<script src="script.js"></script>
+
 </body>
 </html>
